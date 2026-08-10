@@ -1,0 +1,306 @@
+[
+  {
+    "transaction_id": "TXN202838",
+    "category": "clean_fraud_ring",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "ring",
+      "link",
+      "shared device",
+      "network",
+      "fraud rate"
+    ],
+    "notes": "Confirmed fraud with a clear device-sharing ring signature \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN121818",
+    "category": "clean_fraud_ring",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "ring",
+      "link",
+      "shared device",
+      "network",
+      "fraud rate"
+    ],
+    "notes": "Confirmed fraud with a clear device-sharing ring signature \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN174435",
+    "category": "clean_fraud_ring",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "ring",
+      "link",
+      "shared device",
+      "network",
+      "fraud rate"
+    ],
+    "notes": "Confirmed fraud with a clear device-sharing ring signature \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN142060",
+    "category": "clean_fraud_ring",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "ring",
+      "link",
+      "shared device",
+      "network",
+      "fraud rate"
+    ],
+    "notes": "Confirmed fraud with a clear device-sharing ring signature \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN206295",
+    "category": "clean_fraud_takeover",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "new device",
+      "distance",
+      "mismatch",
+      "home"
+    ],
+    "notes": "Confirmed fraud, classic account-takeover signature (new device, far from home) \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN229071",
+    "category": "clean_fraud_takeover",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "new device",
+      "distance",
+      "mismatch",
+      "home"
+    ],
+    "notes": "Confirmed fraud, classic account-takeover signature (new device, far from home) \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN111622",
+    "category": "clean_fraud_takeover",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "new device",
+      "distance",
+      "mismatch",
+      "home"
+    ],
+    "notes": "Confirmed fraud, classic account-takeover signature (new device, far from home) \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN174945",
+    "category": "clean_fraud_takeover",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "new device",
+      "distance",
+      "mismatch",
+      "home"
+    ],
+    "notes": "Confirmed fraud, classic account-takeover signature (new device, far from home) \u2014 should be an unambiguous deny."
+  },
+  {
+    "transaction_id": "TXN210799",
+    "category": "clean_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [
+      "known device",
+      "home",
+      "match"
+    ],
+    "notes": "Legitimate transaction with no red flags anywhere \u2014 should be an unambiguous approve."
+  },
+  {
+    "transaction_id": "TXN112365",
+    "category": "clean_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [
+      "known device",
+      "home",
+      "match"
+    ],
+    "notes": "Legitimate transaction with no red flags anywhere \u2014 should be an unambiguous approve."
+  },
+  {
+    "transaction_id": "TXN133418",
+    "category": "clean_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [
+      "known device",
+      "home",
+      "match"
+    ],
+    "notes": "Legitimate transaction with no red flags anywhere \u2014 should be an unambiguous approve."
+  },
+  {
+    "transaction_id": "TXN211855",
+    "category": "clean_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [
+      "known device",
+      "home",
+      "match"
+    ],
+    "notes": "Legitimate transaction with no red flags anywhere \u2014 should be an unambiguous approve."
+  },
+  {
+    "transaction_id": "TXN197584",
+    "category": "ambiguous_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve",
+      "escalate"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [],
+    "notes": "Legitimate transaction but with a surface-level red flag (new device/VPN/distance) \u2014 a false-positive trap. A confident 'deny' here would be an over-eager agent."
+  },
+  {
+    "transaction_id": "TXN149428",
+    "category": "ambiguous_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve",
+      "escalate"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [],
+    "notes": "Legitimate transaction but with a surface-level red flag (new device/VPN/distance) \u2014 a false-positive trap. A confident 'deny' here would be an over-eager agent."
+  },
+  {
+    "transaction_id": "TXN139908",
+    "category": "ambiguous_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve",
+      "escalate"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [],
+    "notes": "Legitimate transaction but with a surface-level red flag (new device/VPN/distance) \u2014 a false-positive trap. A confident 'deny' here would be an over-eager agent."
+  },
+  {
+    "transaction_id": "TXN208729",
+    "category": "ambiguous_legit",
+    "ground_truth_is_fraud": false,
+    "expected_action_set": [
+      "approve",
+      "escalate"
+    ],
+    "must_not_recommend": "deny",
+    "expected_evidence_keywords": [],
+    "notes": "Legitimate transaction but with a surface-level red flag (new device/VPN/distance) \u2014 a false-positive trap. A confident 'deny' here would be an over-eager agent."
+  },
+  {
+    "transaction_id": "TXN208153",
+    "category": "ambiguous_fraud",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny",
+      "escalate"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "prior",
+      "history",
+      "balance"
+    ],
+    "notes": "Confirmed fraud with normal-looking device/geo/VPN signals \u2014 relies on balance/history evidence. A confident 'approve' here would be a false-negative trap."
+  },
+  {
+    "transaction_id": "TXN235789",
+    "category": "ambiguous_fraud",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny",
+      "escalate"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "prior",
+      "history",
+      "balance"
+    ],
+    "notes": "Confirmed fraud with normal-looking device/geo/VPN signals \u2014 relies on balance/history evidence. A confident 'approve' here would be a false-negative trap."
+  },
+  {
+    "transaction_id": "TXN105682",
+    "category": "ambiguous_fraud",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny",
+      "escalate"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "prior",
+      "history",
+      "balance"
+    ],
+    "notes": "Confirmed fraud with normal-looking device/geo/VPN signals \u2014 relies on balance/history evidence. A confident 'approve' here would be a false-negative trap."
+  },
+  {
+    "transaction_id": "TXN142706",
+    "category": "ambiguous_fraud",
+    "ground_truth_is_fraud": true,
+    "expected_action_set": [
+      "deny",
+      "escalate"
+    ],
+    "must_not_recommend": "approve",
+    "expected_evidence_keywords": [
+      "prior",
+      "history",
+      "balance"
+    ],
+    "notes": "Confirmed fraud with normal-looking device/geo/VPN signals \u2014 relies on balance/history evidence. A confident 'approve' here would be a false-negative trap."
+  }
+]
