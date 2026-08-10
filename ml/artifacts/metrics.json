@@ -1,0 +1,67 @@
+{
+  "test": {
+    "pr_auc": 0.9999539761076167,
+    "roc_auc": 0.9999916197871446,
+    "confusion_matrix": {
+      "tn": 19758,
+      "fp": 0,
+      "fn": 121,
+      "tp": 3853
+    },
+    "precision": 1.0,
+    "recall": 0.9695520885757424
+  },
+  "threshold_selection": {
+    "threshold": 0.5249780416488647,
+    "precision_at_threshold": 1.0,
+    "recall_at_threshold": 0.9911190053285968
+  },
+  "isolation_forest_roc_auc_test": 0.8400302951062664,
+  "train_rows": 110749,
+  "val_rows": 23732,
+  "test_rows": 23732,
+  "train_fraud_rate": 0.033192173292761105,
+  "test_fraud_rate": 0.16745322770942186,
+  "top_features": [
+    [
+      "error_balance_orig",
+      0.5059199333190918
+    ],
+    [
+      "amount_to_orig_balance_ratio",
+      0.17010824382305145
+    ],
+    [
+      "orig_balance_after",
+      0.16181102395057678
+    ],
+    [
+      "balance_delta_orig",
+      0.10767986625432968
+    ],
+    [
+      "hour_of_day",
+      0.011332107707858086
+    ],
+    [
+      "amount",
+      0.007637678179889917
+    ],
+    [
+      "dest_balance_after",
+      0.006146165542304516
+    ],
+    [
+      "error_balance_dest",
+      0.004685340914875269
+    ],
+    [
+      "dest_balance_before_is_zero",
+      0.004096606280654669
+    ],
+    [
+      "orig_balance_before",
+      0.003598980139940977
+    ]
+  ]
+}
