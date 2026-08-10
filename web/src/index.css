@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+  Design concept: "case file console." Hard evidence (transaction IDs, amounts,
+  tool output, timestamps) is always monospace — a ledger/terminal register.
+  The agent's own writing (summary, rationale, risk-factor descriptions) is
+  always the text serif — a written analyst memo. That typographic split is
+  deliberate: it's the one visual idea the whole UI is built around, and it
+  encodes the product's actual mechanism (structured tool data -> narrative
+  reasoning) rather than decorating it.
+
+  Dark is the primary mode (this is a console meant for long review sessions);
+  light is fully supported as a secondary mode via the `.light` class.
+*/
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-canvas: var(--canvas);
+  --color-canvas-elevated: var(--canvas-elevated);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-selected: var(--surface-selected);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-sev-high: var(--sev-high);
+  --color-sev-high-bg: var(--sev-high-bg);
+  --color-sev-medium: var(--sev-medium);
+  --color-sev-medium-bg: var(--sev-medium-bg);
+  --color-sev-low: var(--sev-low);
+  --color-sev-low-bg: var(--sev-low-bg);
+  --color-agent: var(--agent);
+  --color-agent-bg: var(--agent-bg);
+}
+
+:root {
+  --canvas: #05070c;
+  --canvas-elevated: #0b0f17;
+  --surface: #0f131c;
+  --surface-hover: #161b27;
+  --surface-selected: #1a2233;
+  --hairline: #232a3a;
+  --hairline-strong: #313a4f;
+
+  --ink: #edf0f5;
+  --ink-muted: #9aa5b8;
+  --ink-faint: #616e85;
+
+  --sev-high: #f0555c;
+  --sev-high-bg: rgba(240, 85, 92, 0.12);
+  --sev-medium: #e0a94f;
+  --sev-medium-bg: rgba(224, 169, 79, 0.12);
+  --sev-low: #4ecb8e;
+  --sev-low-bg: rgba(78, 203, 142, 0.12);
+  --agent: #4fb8e0;
+  --agent-bg: rgba(79, 184, 224, 0.12);
+
+  color-scheme: dark;
+}
+
+:root.light {
+  --canvas: #f7f8fa;
+  --canvas-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f6;
+  --surface-selected: #e7ecf5;
+  --hairline: #e1e5eb;
+  --hairline-strong: #c7ceda;
+
+  --ink: #10151f;
+  --ink-muted: #52596b;
+  --ink-faint: #848da0;
+
+  --sev-high: #d6323b;
+  --sev-high-bg: rgba(214, 50, 59, 0.08);
+  --sev-medium: #a66a12;
+  --sev-medium-bg: rgba(166, 106, 18, 0.08);
+  --sev-low: #1f9a5f;
+  --sev-low-bg: rgba(31, 154, 95, 0.08);
+  --agent: #1687b0;
+  --agent-bg: rgba(22, 135, 176, 0.08);
+
+  color-scheme: light;
+}
+
+* {
+  border-color: var(--hairline);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--agent-bg);
+  color: var(--ink);
+}
+
+/* Visible keyboard focus everywhere — never remove this. */
+:focus-visible {
+  outline: 2px solid var(--agent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
