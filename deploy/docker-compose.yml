@@ -1,0 +1,61 @@
+# Local reference deployment. From the repo root:
+#   ANTHROPIC_API_KEY=sk-... docker compose -f deploy/docker-compose.yml up --build
+# (or put ANTHROPIC_API_KEY in deploy/.env — see .env.example at repo root)
+#
+# `seed` loads data/processed/*.parquet into Postgres once; `api` waits for it.
+# `web` is the reviewer dashboard, served by nginx, talking to `api` on localhost:8000
+# from the browser's perspective (see web/Dockerfile).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: fraud
+      POSTGRES_PASSWORD: fraud
+      POSTGRES_DB: fraud_investigations
+    volumes:
+      - fraud_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fraud -d fraud_investigations"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  seed:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://fraud:fraud@db:5432/fraud_investigations
+    entrypoint: ["python", "data/generators/load_to_db.py"]
+    restart: "no"
+
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      seed:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://fraud:fraud@db:5432/fraud_investigations
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?set ANTHROPIC_API_KEY in the environment or deploy/.env}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5}
+      RISK_THRESHOLD: ${RISK_THRESHOLD:-0.7}
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: ../web
+    depends_on:
+      - api
+    ports:
+      - "5173:80"
+
+volumes:
+  fraud_pgdata:
