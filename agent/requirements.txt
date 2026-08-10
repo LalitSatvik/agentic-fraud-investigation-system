@@ -1,0 +1,6 @@
+# Agent environment (Python 3.10+ required by the SDK): agent/, eval/scorers/.
+#   pip install -r agent/requirements.txt
+claude-agent-sdk
+anthropic
+pydantic>=2
+httpx

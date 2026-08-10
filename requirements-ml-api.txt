@@ -1,0 +1,18 @@
+# ML/API environment (Python 3.8+): data/, ml/, api/, eval/'s orchestration.
+#   pip install -r requirements-ml-api.txt
+xgboost
+lightgbm
+scikit-learn
+imbalanced-learn
+networkx
+Faker
+fastapi
+uvicorn[standard]
+pydantic>=2
+sqlmodel
+sqlalchemy
+psycopg2-binary
+alembic
+python-multipart
+pandas
+numpy

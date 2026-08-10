@@ -1,0 +1,10 @@
+data/raw/
+dev.db
+*.db
+__pycache__/
+*.pyc
+.env
+.git/
+web/node_modules/
+web/dist/
+*.log

@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+.env
+*.db
+*.sqlite3
+
+# Raw PaySim download (660MB, from Kaggle) — regenerate via
+# data/generators/sample_paysim.py; data/processed/*.parquet (the derived,
+# synthetic-enriched dataset actually used everywhere) IS committed since
+# it's what makes the rest of the repo runnable without a Kaggle account.
+data/raw/*
+!data/raw/.gitkeep
+
+# Local eval runs (timestamped, environment-specific cost/output)
+eval/results/*
+!eval/results/.gitkeep
+
+node_modules/
+web/dist/
+web/.vite/
+.DS_Store
+*.log
+
+# Editor/tooling-local config
+.claude/
+.vscode/
+.idea/
