@@ -11,21 +11,25 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 }
 
 export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("px-5 py-4 border-b border-hairline", className)} {...props} />
+  return <div className={cn("px-6 py-5", className)} {...props} />
 }
 
-export function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+export function CardTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3
-      className={cn(
-        "text-xs font-mono uppercase tracking-widest text-ink-muted",
-        className
-      )}
+    <h2
+      className={cn("flex items-center gap-2.5 text-[13px] font-semibold text-ink-muted", className)}
       {...props}
-    />
+    >
+      <span className="h-px w-3.5 shrink-0 bg-accent" aria-hidden />
+      {children}
+    </h2>
   )
 }
 
 export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("px-5 py-4", className)} {...props} />
+  return <div className={cn("px-6 py-5", className)} {...props} />
 }
