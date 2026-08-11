@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium font-mono uppercase tracking-wide",
+  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium font-sans",
   {
     variants: {
       variant: {
@@ -11,7 +11,7 @@ const badgeVariants = cva(
         high: "bg-sev-high-bg text-sev-high",
         medium: "bg-sev-medium-bg text-sev-medium",
         low: "bg-sev-low-bg text-sev-low",
-        agent: "bg-agent-bg text-agent",
+        agent: "bg-accent-bg text-accent",
       },
     },
     defaultVariants: { variant: "neutral" },
