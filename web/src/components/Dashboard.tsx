@@ -77,7 +77,7 @@ function RiskHeatmap({ bands }: { bands: RiskBandStats[] }) {
                           title={`${band.label} · ${col.label}: ${count}`}
                           tabIndex={0}
                           className={`flex h-14 min-w-16 items-center justify-center rounded-md text-sm font-medium tabular-nums ${
-                            intensity >= 3 ? "text-white" : intensity > 0 ? "text-ink" : "text-ink-faint"
+                            intensity >= 3 ? "text-canvas" : intensity > 0 ? "text-ink" : "text-ink-faint"
                           }`}
                           style={{
                             background: intensity === 0 ? "var(--surface-hover)" : `var(--seq-${intensity})`,

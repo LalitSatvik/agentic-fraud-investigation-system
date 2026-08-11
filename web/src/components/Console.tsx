@@ -17,6 +17,10 @@ export function Console() {
   const [launching, setLaunching] = useState(false)
   const [launchError, setLaunchError] = useState<string | null>(null)
 
+  // Lifted out of DecisionPanel so it survives the `key={selected.id}` remount
+  // below when a reviewer switches between cases in the queue.
+  const [reviewer, setReviewer] = useState("")
+
   const loadQueue = () => {
     setLoading(true)
     api
@@ -120,6 +124,8 @@ export function Console() {
             >
               <CaseFile
                 investigation={selected}
+                reviewer={reviewer}
+                onReviewerChange={setReviewer}
                 onDecided={(updated) => {
                   setInvestigations((prev) => prev.map((i) => (i.id === updated.id ? updated : i)))
                 }}

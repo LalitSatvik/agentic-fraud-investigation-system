@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils"
 interface CaseFileProps {
   investigation: Investigation
   onDecided: (updated: Investigation) => void
+  reviewer: string
+  onReviewerChange: (value: string) => void
 }
 
 function Fact({ label, value }: { label: string; value: string }) {
@@ -33,7 +35,7 @@ function RiskFactorCard({ rf }: { rf: RiskFactor }) {
   )
 }
 
-export function CaseFile({ investigation, onDecided }: CaseFileProps) {
+export function CaseFile({ investigation, onDecided, reviewer, onReviewerChange }: CaseFileProps) {
   const [txn, setTxn] = useState<TransactionDetail | null>(null)
   const [showTrace, setShowTrace] = useState(false)
 
@@ -171,8 +173,10 @@ export function CaseFile({ investigation, onDecided }: CaseFileProps) {
 
       <DecisionPanel
         investigation={investigation}
-        onDecide={async (decision, reviewer, notes) => {
-          const updated = await api.submitDecision(investigation.id, { decision, reviewer, notes })
+        reviewer={reviewer}
+        onReviewerChange={onReviewerChange}
+        onDecide={async (decision, reviewerName, notes) => {
+          const updated = await api.submitDecision(investigation.id, { decision, reviewer: reviewerName, notes })
           onDecided(updated)
         }}
       />

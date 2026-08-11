@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { MotionConfig } from "framer-motion"
 import { Home } from "@/components/Home"
 import { Dashboard } from "@/components/Dashboard"
 import { Console } from "@/components/Console"
@@ -60,11 +61,13 @@ function App() {
       </header>
 
       <div className="relative z-10 flex min-h-0 flex-1">
-        {view === "home" && (
-          <Home onEnterDashboard={() => setView("dashboard")} onEnterConsole={() => setView("console")} />
-        )}
-        {view === "dashboard" && <Dashboard />}
-        {view === "console" && <Console />}
+        <MotionConfig reducedMotion="user">
+          {view === "home" && (
+            <Home onEnterDashboard={() => setView("dashboard")} onEnterConsole={() => setView("console")} />
+          )}
+          {view === "dashboard" && <Dashboard />}
+          {view === "console" && <Console />}
+        </MotionConfig>
       </div>
     </div>
   )

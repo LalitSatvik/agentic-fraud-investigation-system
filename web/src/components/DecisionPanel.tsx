@@ -8,6 +8,8 @@ import { formatRelativeTime } from "@/lib/format"
 interface DecisionPanelProps {
   investigation: Investigation
   onDecide: (decision: string, reviewer: string, notes: string) => Promise<void>
+  reviewer: string
+  onReviewerChange: (value: string) => void
 }
 
 const DECISION_LABELS: Record<string, string> = {
@@ -16,8 +18,7 @@ const DECISION_LABELS: Record<string, string> = {
   more_investigation_requested: "More investigation requested",
 }
 
-export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
-  const [reviewer, setReviewer] = useState("")
+export function DecisionPanel({ investigation, onDecide, reviewer, onReviewerChange }: DecisionPanelProps) {
   const [notes, setNotes] = useState("")
   const [submitting, setSubmitting] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -68,7 +69,7 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
           <Input
             id="reviewer"
             value={reviewer}
-            onChange={(e) => setReviewer(e.target.value)}
+            onChange={(e) => onReviewerChange(e.target.value)}
             placeholder="you@company.com"
           />
         </div>
