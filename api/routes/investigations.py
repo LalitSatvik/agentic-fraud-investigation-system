@@ -4,6 +4,7 @@ The review-queue + human-in-the-loop endpoints.
 POST /investigations/{transaction_id}/run   — score + (if above threshold) run the
                                                Investigation Agent, persist as pending_review
 GET  /investigations/flagged                — the review queue
+GET  /investigations/stats                  — aggregate counts for the dashboard
 GET  /investigations/{id}                   — full report + evidence trace
 POST /investigations/{id}/decision          — human approve / reject / request more investigation
 
@@ -18,7 +19,8 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
+from collections import Counter
+from typing import Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -146,6 +148,67 @@ def list_flagged(session: Session = Depends(get_session)):
         .order_by(Investigation.risk_score.desc())
     )
     return session.exec(statement).all()
+
+
+RISK_BANDS = [
+    (0.0, 0.2, "0–20%"),
+    (0.2, 0.4, "20–40%"),
+    (0.4, 0.6, "40–60%"),
+    (0.6, 0.8, "60–80%"),
+    (0.8, 1.0, "80–100%"),
+]
+
+
+class RiskBandStats(BaseModel):
+    label: str
+    min: float
+    max: float
+    count: int
+    by_recommended_action: Dict[str, int]
+
+
+class InvestigationStats(BaseModel):
+    total: int
+    by_status: Dict[str, int]
+    by_recommended_action: Dict[str, int]
+    by_confidence: Dict[str, int]
+    risk_score_histogram: List[RiskBandStats]
+
+
+@router.get("/stats", response_model=InvestigationStats)
+def get_stats(session: Session = Depends(get_session)):
+    """Aggregate counts for the dashboard — read-only, computed from the
+    existing Investigation table, no schema change."""
+    rows = session.exec(select(Investigation)).all()
+
+    by_status = Counter(r.status for r in rows)
+    by_recommended_action = Counter((r.report or {}).get("recommended_action", "none") for r in rows)
+    by_confidence = Counter((r.report or {}).get("confidence", "none") for r in rows)
+
+    histogram = []
+    for low, high, label in RISK_BANDS:
+        in_band = [
+            r for r in rows
+            if low <= r.risk_score < high or (high == 1.0 and r.risk_score == 1.0)
+        ]
+        band_actions = Counter((r.report or {}).get("recommended_action", "none") for r in in_band)
+        histogram.append(
+            RiskBandStats(
+                label=label,
+                min=low,
+                max=high,
+                count=len(in_band),
+                by_recommended_action=dict(band_actions),
+            )
+        )
+
+    return InvestigationStats(
+        total=len(rows),
+        by_status=dict(by_status),
+        by_recommended_action=dict(by_recommended_action),
+        by_confidence=dict(by_confidence),
+        risk_score_histogram=histogram,
+    )
 
 
 @router.get("/{investigation_id}", response_model=Investigation)
