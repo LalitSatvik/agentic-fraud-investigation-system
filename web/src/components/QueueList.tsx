@@ -13,7 +13,7 @@ export function QueueList({ investigations, selectedId, onSelect }: QueueListPro
   if (investigations.length === 0) {
     return (
       <div className="px-5 py-10 text-center">
-        <p className="text-sm font-serif text-ink-muted leading-relaxed">
+        <p className="text-sm leading-relaxed text-ink-muted">
           No flagged transactions right now. The queue clears as investigations are decided —
           new cases appear here as soon as the model flags something above threshold.
         </p>
@@ -32,20 +32,20 @@ export function QueueList({ investigations, selectedId, onSelect }: QueueListPro
             <button
               onClick={() => onSelect(inv.id)}
               className={cn(
-                "w-full text-left px-4 py-3 border-b border-hairline transition-colors duration-150 cursor-pointer relative",
+                "relative w-full cursor-pointer border-b border-hairline px-5 py-4 text-left transition-colors duration-150",
                 isSelected ? "bg-surface-selected" : "hover:bg-surface-hover"
               )}
             >
               {isSelected && (
-                <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-agent" aria-hidden />
+                <span className="absolute bottom-0 left-0 top-0 w-[3px] bg-accent" aria-hidden />
               )}
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-sm text-ink">{inv.transaction_id}</span>
+                <span className="font-mono text-sm font-medium text-ink">{inv.transaction_id}</span>
                 <span className="font-mono text-xs text-ink-faint">{formatRelativeTime(inv.created_at)}</span>
               </div>
-              <div className="mt-1.5 flex items-center justify-between gap-2">
-                <span className="font-mono text-xs text-ink-muted">
-                  risk <span className="text-ink">{formatPercent(inv.risk_score)}</span>
+              <div className="mt-2 flex items-center justify-between gap-2">
+                <span className="text-xs text-ink-muted">
+                  risk <span className="font-mono text-ink">{formatPercent(inv.risk_score)}</span>
                 </span>
                 {action ? (
                   <Badge variant={sev === "neutral" ? "neutral" : sev}>{action}</Badge>
