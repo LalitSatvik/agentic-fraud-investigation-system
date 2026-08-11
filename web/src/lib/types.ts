@@ -76,3 +76,19 @@ export interface TransactionDetail {
   above_threshold: boolean
   model_version: string
 }
+
+export interface RiskBandStats {
+  label: string
+  min: number
+  max: number
+  count: number
+  by_recommended_action: Record<string, number>
+}
+
+export interface InvestigationStats {
+  total: number
+  by_status: Record<string, number>
+  by_recommended_action: Record<string, number>
+  by_confidence: Record<string, number>
+  risk_score_histogram: RiskBandStats[]
+}

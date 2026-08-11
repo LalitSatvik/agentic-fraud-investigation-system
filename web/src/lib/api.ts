@@ -1,4 +1,4 @@
-import type { AuditLogEntry, Investigation, TransactionDetail } from "./types"
+import type { AuditLogEntry, Investigation, InvestigationStats, TransactionDetail } from "./types"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"
 
@@ -16,6 +16,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   listFlagged: () => request<Investigation[]>("/investigations/flagged"),
+
+  getStats: () => request<InvestigationStats>("/investigations/stats"),
 
   getInvestigation: (id: number) => request<Investigation>(`/investigations/${id}`),
 
