@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { Investigation } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Input, Textarea } from "@/components/ui/input"
+import { Card, CardTitle } from "@/components/ui/card"
 import { formatRelativeTime } from "@/lib/format"
 
 interface DecisionPanelProps {
@@ -23,11 +24,9 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
 
   if (investigation.status !== "pending_review") {
     return (
-      <div className="rounded-lg border border-hairline-strong bg-surface px-5 py-4">
-        <p className="text-xs font-mono uppercase tracking-widest text-ink-muted mb-2">
-          Reviewed
-        </p>
-        <p className="font-sans text-sm text-ink">
+      <Card className="px-6 py-5">
+        <CardTitle className="mb-2">Reviewed</CardTitle>
+        <p className="text-sm text-ink">
           {DECISION_LABELS[investigation.status] ?? investigation.status} by{" "}
           <span className="font-medium">{investigation.decided_by}</span>
           {investigation.decided_at && (
@@ -35,11 +34,9 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
           )}
         </p>
         {investigation.decision_notes && (
-          <p className="mt-2 font-serif text-sm text-ink-muted leading-relaxed">
-            "{investigation.decision_notes}"
-          </p>
+          <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">"{investigation.decision_notes}"</p>
         )}
-      </div>
+      </Card>
     )
   }
 
@@ -60,14 +57,12 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
   }
 
   return (
-    <div className="rounded-lg border border-hairline-strong bg-surface px-5 py-4">
-      <p className="text-xs font-mono uppercase tracking-widest text-ink-muted mb-3">
-        Your decision
-      </p>
+    <Card className="px-6 py-5">
+      <CardTitle className="mb-4">Your decision</CardTitle>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         <div>
-          <label htmlFor="reviewer" className="block text-xs font-sans text-ink-muted mb-1">
+          <label htmlFor="reviewer" className="mb-1.5 block text-xs text-ink-muted">
             Reviewer name
           </label>
           <Input
@@ -78,7 +73,7 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
           />
         </div>
         <div>
-          <label htmlFor="notes" className="block text-xs font-sans text-ink-muted mb-1">
+          <label htmlFor="notes" className="mb-1.5 block text-xs text-ink-muted">
             Notes <span className="text-ink-faint">(optional)</span>
           </label>
           <Textarea
@@ -89,21 +84,13 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
           />
         </div>
 
-        {error && <p className="text-sm font-sans text-sev-high">{error}</p>}
+        {error && <p className="text-sm text-sev-high">{error}</p>}
 
         <div className="flex flex-wrap gap-2 pt-1">
-          <Button
-            variant="approve"
-            disabled={submitting !== null}
-            onClick={() => handleDecide("approved")}
-          >
+          <Button variant="approve" disabled={submitting !== null} onClick={() => handleDecide("approved")}>
             {submitting === "approved" ? "Approving…" : "Approve"}
           </Button>
-          <Button
-            variant="deny"
-            disabled={submitting !== null}
-            onClick={() => handleDecide("rejected")}
-          >
+          <Button variant="deny" disabled={submitting !== null} onClick={() => handleDecide("rejected")}>
             {submitting === "rejected" ? "Rejecting…" : "Reject"}
           </Button>
           <Button
@@ -115,6 +102,6 @@ export function DecisionPanel({ investigation, onDecide }: DecisionPanelProps) {
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
