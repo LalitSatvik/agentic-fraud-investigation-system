@@ -1,22 +1,26 @@
 @import "tailwindcss";
 
 /*
-  Design concept: "case file console." Hard evidence (transaction IDs, amounts,
-  tool output, timestamps) is always monospace — a ledger/terminal register.
-  The agent's own writing (summary, rationale, risk-factor descriptions) is
-  always the text serif — a written analyst memo. That typographic split is
-  deliberate: it's the one visual idea the whole UI is built around, and it
-  encodes the product's actual mechanism (structured tool data -> narrative
-  reasoning) rather than decorating it.
+  Design concept: editorial console. A confident display face (Space Grotesk)
+  carries the few oversized, high-stakes moments — the transaction ID, the
+  agent's verdict, the home-page headline. Inter carries everything else:
+  body copy, labels, buttons, nav. Monospace (JetBrains Mono) is reserved for
+  genuine data values — IDs, hashes, amounts, timestamps, raw trace JSON —
+  never used to decorate a whole screen. Section labels are sentence-case
+  Inter, not tracked all-caps.
 
-  Dark is the primary mode (this is a console meant for long review sessions);
-  light is fully supported as a secondary mode via the `.light` class.
+  Light is the primary mode (warm-neutral, editorial, Increase-inspired);
+  dark is fully supported as a secondary mode via the `.dark` class on <html>.
 */
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Source Serif 4", ui-serif, Georgia, serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
 
   --color-canvas: var(--canvas);
   --color-canvas-elevated: var(--canvas-elevated);
@@ -30,64 +34,91 @@
   --color-ink-muted: var(--ink-muted);
   --color-ink-faint: var(--ink-faint);
 
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
+
   --color-sev-high: var(--sev-high);
   --color-sev-high-bg: var(--sev-high-bg);
   --color-sev-medium: var(--sev-medium);
   --color-sev-medium-bg: var(--sev-medium-bg);
   --color-sev-low: var(--sev-low);
   --color-sev-low-bg: var(--sev-low-bg);
-  --color-agent: var(--agent);
-  --color-agent-bg: var(--agent-bg);
 }
 
 :root {
-  --canvas: #05070c;
-  --canvas-elevated: #0b0f17;
-  --surface: #0f131c;
-  --surface-hover: #161b27;
-  --surface-selected: #1a2233;
-  --hairline: #232a3a;
-  --hairline-strong: #313a4f;
-
-  --ink: #edf0f5;
-  --ink-muted: #9aa5b8;
-  --ink-faint: #616e85;
-
-  --sev-high: #f0555c;
-  --sev-high-bg: rgba(240, 85, 92, 0.12);
-  --sev-medium: #e0a94f;
-  --sev-medium-bg: rgba(224, 169, 79, 0.12);
-  --sev-low: #4ecb8e;
-  --sev-low-bg: rgba(78, 203, 142, 0.12);
-  --agent: #4fb8e0;
-  --agent-bg: rgba(79, 184, 224, 0.12);
-
-  color-scheme: dark;
-}
-
-:root.light {
-  --canvas: #f7f8fa;
-  --canvas-elevated: #ffffff;
+  --canvas: #f7f5f0;
+  --canvas-elevated: #fdfcfa;
   --surface: #ffffff;
-  --surface-hover: #f1f3f6;
-  --surface-selected: #e7ecf5;
-  --hairline: #e1e5eb;
-  --hairline-strong: #c7ceda;
+  --surface-hover: #f1efe8;
+  --surface-selected: #eae6da;
+  --hairline: #e3ddd0;
+  --hairline-strong: #cec5b2;
 
-  --ink: #10151f;
-  --ink-muted: #52596b;
-  --ink-faint: #848da0;
+  --ink: #17181a;
+  --ink-muted: #5c5d54;
+  --ink-faint: #92948a;
 
-  --sev-high: #d6323b;
-  --sev-high-bg: rgba(214, 50, 59, 0.08);
-  --sev-medium: #a66a12;
-  --sev-medium-bg: rgba(166, 106, 18, 0.08);
-  --sev-low: #1f9a5f;
-  --sev-low-bg: rgba(31, 154, 95, 0.08);
-  --agent: #1687b0;
-  --agent-bg: rgba(22, 135, 176, 0.08);
+  --accent: #2c5aa3;
+  --accent-bg: rgba(44, 90, 163, 0.08);
+
+  --sev-high: #b7302f;
+  --sev-high-bg: rgba(183, 48, 47, 0.07);
+  --sev-medium: #96650f;
+  --sev-medium-bg: rgba(150, 101, 15, 0.08);
+  --sev-low: #1e7a4c;
+  --sev-low-bg: rgba(30, 122, 76, 0.07);
+
+  /* Sequential ramp — magnitude, one hue, light -> dark. Dashboard heatmap
+     only (Task 15); referenced directly as var(--seq-N), not a Tailwind
+     color utility. Validated against this surface (#ffffff) with
+     dataviz's ordinal-ramp check: light-end contrast 2.11:1, monotone L,
+     single hue (spread 3°). */
+  --seq-1: #86b6ef;
+  --seq-2: #5598e7;
+  --seq-3: #2a78d6;
+  --seq-4: #1c5cab;
+  --seq-5: #104281;
+
+  /* Opacity of the ambient WaveBackground layer behind Dashboard/Console. */
+  --wave-ambient-opacity: 0.06;
 
   color-scheme: light;
+}
+
+:root.dark {
+  --canvas: #0a0b0d;
+  --canvas-elevated: #101216;
+  --surface: #15171c;
+  --surface-hover: #1c1f26;
+  --surface-selected: #232733;
+  --hairline: #262a33;
+  --hairline-strong: #363c49;
+
+  --ink: #f2f1ec;
+  --ink-muted: #a3a598;
+  --ink-faint: #6b6d64;
+
+  --accent: #7ba6e8;
+  --accent-bg: rgba(123, 166, 232, 0.12);
+
+  --sev-high: #ef6a68;
+  --sev-high-bg: rgba(239, 106, 104, 0.13);
+  --sev-medium: #e4b15a;
+  --sev-medium-bg: rgba(228, 177, 90, 0.13);
+  --sev-low: #56d199;
+  --sev-low-bg: rgba(86, 209, 153, 0.12);
+
+  /* Validated against surface #15171c: light-end (darkest step) contrast
+     2.21:1, monotone L, single hue (spread 3°). */
+  --seq-1: #184f95;
+  --seq-2: #256abf;
+  --seq-3: #3987e5;
+  --seq-4: #6da7ec;
+  --seq-5: #9ec5f4;
+
+  --wave-ambient-opacity: 0.14;
+
+  color-scheme: dark;
 }
 
 * {
@@ -102,13 +133,13 @@ body {
 }
 
 ::selection {
-  background: var(--agent-bg);
+  background: var(--accent-bg);
   color: var(--ink);
 }
 
 /* Visible keyboard focus everywhere — never remove this. */
 :focus-visible {
-  outline: 2px solid var(--agent);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;
 }
