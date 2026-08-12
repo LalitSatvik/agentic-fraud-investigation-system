@@ -218,7 +218,6 @@ Expected: succeeds. Colors will visibly shift (existing components reference `--
 git add web/index.html web/src/index.css
 git commit -m "feat(web): editorial design tokens (Space Grotesk/Inter/JetBrains Mono, warm-neutral palette)
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -288,7 +287,6 @@ Open the app, select a queued case — badges (queue-row action tag, risk-factor
 git add web/src/components/ui/badge.tsx
 git commit -m "feat(web): restyle Badge — pill shape, sentence case, accent tokens
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -356,7 +354,6 @@ Expected: succeeds.
 git add web/src/components/ui/button.tsx
 git commit -m "feat(web): restyle Button — larger touch targets, new tokens
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -424,7 +421,6 @@ Expected: succeeds (no call sites to break yet).
 git add web/src/components/ui/card.tsx
 git commit -m "feat(web): restyle Card family — CardTitle carries the accent-dash section-label treatment
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -485,7 +481,6 @@ Expected: succeeds.
 git add web/src/components/ui/input.tsx
 git commit -m "feat(web): restyle Input/Textarea — larger targets, canvas-recessed fields
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -518,7 +513,6 @@ Expected: succeeds (nothing imports the new packages yet — this step only conf
 git add web/package.json web/package-lock.json
 git commit -m "chore(web): add simplex-noise and framer-motion
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -814,7 +808,6 @@ Expected: succeeds. (Nothing imports `WaveBackground` yet — this only confirms
 git add web/src/components/WaveBackground.tsx
 git commit -m "feat(web): add WaveBackground (ported wave-noise component, token-themed, ambient mode)
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -965,7 +958,6 @@ Stop the server (`Ctrl-C` or kill the background process) once both checks pass.
 git add api/routes/investigations.py
 git commit -m "feat(api): add read-only GET /investigations/stats for the dashboard
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1036,7 +1028,6 @@ Expected: succeeds.
 git add web/src/lib/types.ts web/src/lib/api.ts
 git commit -m "feat(web): add InvestigationStats type and api.getStats()
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1131,7 +1122,6 @@ Expected: succeeds.
 git add web/src/components/QueueList.tsx
 git commit -m "feat(web): redesign QueueList — sentence case, accent selection rule
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1347,7 +1337,6 @@ Expected: succeeds.
 git add web/src/components/CaseFile.tsx
 git commit -m "feat(web): redesign CaseFile — display face for txn id/verdict, verdict as headline not badge
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1489,7 +1478,6 @@ Expected: succeeds.
 git add web/src/components/DecisionPanel.tsx
 git commit -m "feat(web): redesign DecisionPanel — Card-based container, restrained labels
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1666,7 +1654,6 @@ Expected: succeeds (new unused file, doesn't affect the still-untouched `App.tsx
 git add web/src/components/Console.tsx
 git commit -m "feat(web): extract Console (queue + case file) from App.tsx, add responsive stacking
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1758,7 +1745,6 @@ Expected: succeeds.
 git add web/src/components/Home.tsx
 git commit -m "feat(web): add Home page — full wave hero, staggered entrance
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1957,7 +1943,6 @@ Expected: succeeds.
 git add web/src/components/Dashboard.tsx
 git commit -m "feat(web): add Dashboard — bento KPI tiles + risk/action heatmap
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -2065,7 +2050,6 @@ Expected: succeeds.
 git add web/src/App.tsx
 git commit -m "feat(web): App shell — Home/Dashboard/Console nav, light-primary theme toggle, ambient wave
 
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
